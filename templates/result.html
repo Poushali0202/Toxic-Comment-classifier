@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      .btn:hover {
+           background-color: #3e8e41;
+           color: white;
+         }
+         .ml1 {
+  font-weight: 900;
+  font-size: 3.5em;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.ml1 .letter {
+  display: inline-block;
+  line-height: 1em;
+}
+
+.ml1 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.1em;
+  padding-right: 0.05em;
+  padding-bottom: 0.15em;
+}
+
+.ml1 .line {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  transform-origin: 0 0;
+}
+
+.ml1 .line1 { top: 0; }
+.ml1 .line2 { bottom: 0; }
+    </style>
+  </head>
+  <body style="background-image: linear-gradient(to left, rgb(255, 153, 153), rgb(159, 0, 0)); animation-name: example;">
+    <div>
+        <h1 class="ml1">
+            <span class="text-wrapper">
+              <span class="line line1"></span>
+              <span class="letters">TOXIC COMMENT CLASSIFIER</span>
+              <span class="line line2"></span>
+            </span>
+          </h1>
+
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  
+  <!-- Main Input For Receiving Query to our ML -->
+
+    <h2 style="font-style: italic;text-align: center;margin-top: 70px;">The entered comment classification is -</h2>
+    <br>
+    <h3 style="text-align: center;">
+        {{ pred_tox }} <br><br>
+  {{ pred_sev }} <br><br>
+  {{ pred_obs }} <br><br>
+  {{ pred_ins }} <br><br>
+  {{ pred_thr }} <br><br>
+  {{ pred_ide }}</h3>
+    </div>
+    <script>
+        var textWrapper = document.querySelector('.ml1 .letters');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml1 .letter',
+    scale: [0.3,1],
+    opacity: [0,1],
+    translateZ: 0,
+    easing: "easeOutExpo",
+    duration: 600,
+    delay: (el, i) => 70 * (i+1)
+  }).add({
+    targets: '.ml1 .line',
+    scaleX: [0,1],
+    opacity: [0.5,1],
+    easing: "easeOutExpo",
+    duration: 700,
+    offset: '-=875',
+    delay: (el, i, l) => 80 * (l - i)
+  }).add({
+    targets: '.ml1',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+
+    </script>
+
+
+  </body>
+</html>
